@@ -1,0 +1,56 @@
+<div class="container mt-5">
+    <h1 class="d-inline">Welcome, <%= @user.name %></h1>
+    <a href="<%= session[:user_id] %>/edit" class="d-inline text-decoration-none ms-3"><i class="fas fa-edit"></i> Edit Profile</a>
+    <% if flash[:error] %>
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <strong><%= flash[:error] %></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% end %>
+    <form action="/secrets/<%= session[:user_id] %>" method="POST" class="col-lg-12 mt-5">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <div class="col-md-12 mb-3">
+            <label for="secret" class="form-label fw-bold">Post a new secret</label>
+            <textarea id="secret" class="form-control" name="content" placeholder="Type your secret here!" style="height: 150px;"></textarea>
+            <% if flash[:errors] %>
+                <% if flash[:errors]["content"] != nil %>
+                    <p class="small text-danger fst-italic">Secret <%= flash[:errors]["content"][0] %></p>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-12 mb-5">
+            <button type="submit" class="btn btn-sm btn-danger float-end">Create Secret</button>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 mt-5">
+            <h4>Secrets</h4>
+            <% if @secrets.length > 0 %>
+                <% @secrets.each do |secret|%>
+                    <div class="border-bottom p-3">
+                        <p class="d-inline">🤐 <%= secret.content %></p>
+                        <form action="/secrets/<%= secret.id %>" method="POST" class="float-end">
+                            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                            <input type="hidden" name="_method" value="delete">
+                            <button type="submit" class="btn btn-sm btn-outline-danger ms-3"><i class="fas fa-trash"></i> Delete Secret</button>
+                        </form>
+                    </div>
+                <% end %>
+            <% else %>
+                <p>No secrets</p>
+            <% end %>
+        </div>
+        <div class="col-lg-6 col-sm-12 mt-5">
+            <h4>Secrets Liked</h4>
+            <% if @secrets_liked.length > 0 %>
+                <% @secrets_liked.each do |secret|%>
+                    <div class="border-bottom p-3">
+                        <p class="fw-bold d-inline">🤐 <%= secret.content %></p>
+                    </div>
+                <% end %>
+            <% else %>
+                <p>No secrets</p>
+            <% end %>
+        </div>
+    </div>
+</div>

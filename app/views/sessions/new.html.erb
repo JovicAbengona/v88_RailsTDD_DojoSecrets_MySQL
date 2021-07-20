@@ -1,0 +1,21 @@
+<div class="container">
+    <form action="/session" method="POST" class="col-lg-6 col-xs-12 mt-5 row">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <div class="col-md-12 mb-3">
+            <h5 class="display-5 text-danger">Login</h5>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="user[email]" id="email" autofocus>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="user[password]" id="password">
+            <% if flash[:errors] != nil %>
+                <p class="small text-danger fst-italic"><%= flash[:errors] %></p>
+            <% end %>
+        </div>
+        <div class="col-12 mb-3">
+            <button type="submit" class="btn btn-danger">Log In</button>
+            <a href="/users/new" class="d-block mt-2 fst-italic small text-danger">Don't have an account? Register Now!</a>
+        </div>
+    </form>
+</div>

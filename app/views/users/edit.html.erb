@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="col-md-12 mt-5">
+        <h5 class="display-5 text-danger d-inline">Edit Profile</h5>
+        <form action="/delete/<%= @user["id"] %>" method="POST" class="d-inline align-text-bottom">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn btn-sm btn-outline-secondary ms-3"><i class="fas fa-trash"></i> Delete Account</button>
+        </form>
+    </div>
+    <form action="/update/<%= @user["id"] %>" method="POST" class="col-lg-6 col-xs-12 mt-3 row">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="patch">
+        <div class="col-md-12 mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="user[name]" id="name" value="<%= @user["name"] %>">
+            <% if flash[:errors] %>
+                <% if flash[:errors]["name"] != nil %>
+                    <p class="small text-danger fst-italic">Name <%= flash[:errors]["name"][0] %></p>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" name="user[email]" id="email" value="<%= @user["email"] %>">
+            <% if flash[:errors] %>
+                <% if flash[:errors]["email"] != nil %>
+                    <p class="small text-danger fst-italic">Email <%= flash[:errors]["email"][0] %></p>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-12 mb-3">
+            <button type="submit" class="btn btn-danger">Update</button>
+        </div>
+    </form>
+</div>

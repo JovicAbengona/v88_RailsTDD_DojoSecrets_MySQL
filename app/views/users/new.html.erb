@@ -1,0 +1,48 @@
+<div class="container">
+    <form action="/users" method="POST" class="col-lg-6 col-xs-12 mt-5 row">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <div class="col-md-12 mb-3">
+            <h5 class="display-5 text-danger">Register An Account</h5>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="user[name]" id="name" value="<%= flash[:reg_name] %>">
+            <% if flash[:errors] %>
+                <% if flash[:errors]["name"] != nil %>
+                    <p class="small text-danger fst-italic">Name <%= flash[:errors]["name"][0] %></p>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" name="user[email]" id="email" value="<%= flash[:reg_email] %>">
+            <% if flash[:errors] %>
+                <% if flash[:errors]["email"] != nil %>
+                    <p class="small text-danger fst-italic">Email <%= flash[:errors]["email"][0] %></p>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="user[password]" id="password">
+            <% if flash[:errors] %>
+                <% if flash[:errors]["password"] != nil %>
+                    <p class="small text-danger fst-italic">Password <%= flash[:errors]["password"][0] %></p>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="password_confirmation" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" name="user[password_confirmation]" id="password_confirmation">
+            <% if flash[:errors] %>
+                <% if flash[:errors]["password_confirmation"] != nil %>
+                    <p class="small text-danger fst-italic">Confirm Password <%= flash[:errors]["password_confirmation"][0] %></p>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-12 mb-3">
+            <button type="submit" class="btn btn-danger">Register</button>
+            <a href="/" class="d-block mt-2 fst-italic small text-danger">Already have an account? Log in here!</a>
+        </div>
+    </form>
+</div>
